@@ -6,7 +6,7 @@ import { initializeApp } from "firebase/app";
 // https://firebase.google.com/docs/web/setup#available-libraries
 import { getFirestore } from "firebase/firestore/lite";
 
-import {getAuth, signInWithRedirect, GithubAuthProvider, onAuthStateChanged, User} from "firebase/auth";
+import {getAuth, signInWithPopup, GithubAuthProvider, onAuthStateChanged, User} from "firebase/auth";
 
 // From Authentication Service creationYour web app's Firebase configuration
 const firebaseConfig = {
@@ -21,9 +21,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
-const provider = new GithubAuthProvider();
-
-const auth = getAuth();
+const auth = getAuth(app);
 
 // Initialize Cloud Firestore and get a reference to the service
 const db = getFirestore(app);
@@ -31,13 +29,16 @@ const db = getFirestore(app);
 // website for GitHub signin SDK - https://firebase.google.com/docs/auth/web/github-auth#web-modular-api
 
 export function signInWithGithub() {
-  return signInWithRedirect(auth, provider);
+  console.log("sign in called");
+  return signInWithPopup(auth, new GithubAuthProvider());
 }
 
 export function signOut() {
+  console.log("sign out called");
   return auth.signOut();
 }
 
 export function onAuthStateChangedHelper(callback: (user: User | null) => void) {
+  console.log(`onAuthstateChangedHelper called`);
   return onAuthStateChanged(auth, callback);
 }
