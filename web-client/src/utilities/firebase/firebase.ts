@@ -4,6 +4,7 @@
 import { initializeApp } from "firebase/app";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
+import { getFirestore } from "firebase/firestore/lite";
 
 import {getAuth, signInWithRedirect, GithubAuthProvider, onAuthStateChanged, User} from "firebase/auth";
 
@@ -23,6 +24,9 @@ const app = initializeApp(firebaseConfig);
 const provider = new GithubAuthProvider();
 
 const auth = getAuth();
+
+// Initialize Cloud Firestore and get a reference to the service
+const db = getFirestore(app);
 
 // website for GitHub signin SDK - https://firebase.google.com/docs/auth/web/github-auth#web-modular-api
 
