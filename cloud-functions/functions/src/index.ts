@@ -26,7 +26,7 @@ export const storeNewUserInFirebase = functions.auth.user().onCreate((user) => {
   };
 
   // where collection or doc does not exist, it will be created
-  firestore.collection("users").doc(user.displayName || user.uid).set(userInfo);
+  firestore.collection("users").doc(user.uid).set(userInfo);
 
   logger.info(`User Created: ${JSON.stringify(userInfo)}`);
 });
