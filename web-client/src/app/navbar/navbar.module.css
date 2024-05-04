@@ -1,0 +1,8 @@
+.nav {
+  background-color: var(--3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 55px;
+  color: var(--5);
+}
