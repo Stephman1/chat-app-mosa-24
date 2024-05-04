@@ -22,9 +22,10 @@ function Navbar() {
 
   return (
     <nav className={styles.nav}>
-      <h1>TODO: Logo</h1>
+      <h1>ToDo: Logo</h1>
       <h1>DevChat</h1>
-      <SignInBtn user={user} />
+      {/* <SignInBtn user={user} /> */}
+      <h1>ToDo: SignIn Button</h1>
     </nav>
   );
 }
