@@ -3,7 +3,22 @@ import styles from "./page.module.css";
 export default function Home() {
   return (
     <main className={styles.main}>
-      <h1>My Home Page</h1>
+      <h1 className={styles.welcomeText}>
+        Welcome <br></br> to <span className={styles.siteName}>DevChat</span>.
+      </h1>
+      
+      <div className={styles.buttons}>
+        <form action="/chat" method="get">
+          <button className={styles.button} type="submit">Chat</button>
+        </form>
+        <form action="/search" method="get">
+          <button className={styles.button} type="submit">Search</button>
+        </form>
+      </div>
+      
+      <div className={styles.noticeContainer}>
+        <p>Please excuse the mess. We're in Beta.</p>
+      </div>
     </main>
   );
 }

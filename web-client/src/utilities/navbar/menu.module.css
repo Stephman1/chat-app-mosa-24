@@ -1,0 +1,38 @@
+.dropdown {
+  margin-left: 25px;
+  display: flex;
+  flex-direction: column;
+}
+
+.menuicon {
+  width: 30px;
+  color: var(--1);
+  width: 30px;
+  height: 30px;
+}
+
+.menuicon:hover {
+  cursor: pointer;
+}
+
+.pagelist {
+  display: none;
+  margin-bottom: -70px;
+  margin-top: 15px;
+  color: var(--3);
+  top: 50px;
+}
+
+.listElement {
+  list-style: none;
+  border: 1px solid var(--3);
+}
+
+.listElement:hover {
+  background-color: var(--1);
+  cursor: pointer;
+  color: white;
+
+}
+
+

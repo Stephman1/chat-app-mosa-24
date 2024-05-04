@@ -20,13 +20,15 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
+const provider = new GithubAuthProvider();
+
 const auth = getAuth(app);
 
 // website for GitHub signin SDK - https://firebase.google.com/docs/auth/web/github-auth#web-modular-api
 
 export function signInWithGithub() {
   console.log("sign in called");
-  return signInWithPopup(auth, new GithubAuthProvider());
+  return signInWithPopup(auth, provider);
 }
 
 export function signOut() {
