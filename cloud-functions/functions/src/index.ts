@@ -30,3 +30,30 @@ export const storeNewUserInFirebase = functions.auth.user().onCreate((user) => {
 
   logger.info(`User Created: ${JSON.stringify(userInfo)}`);
 });
+
+export const limitCollectionSize = functions.firestore
+  .document("messages/{wildcard}")
+  .onWrite(async (change, context) => {
+    // logger.info("New DB write detected");
+
+    // const newDoc = change.after.data();
+
+    // Skip if data hasn't changed or deleted
+    // if (!change.after.exists) return;
+
+    // Get the top 10 most recent documents with a cursor
+    const cursor = await firestore
+      .collection("messages")
+      .orderBy("timestamp", "desc")
+      .get();
+
+    // Check if there are more than 10 documents
+    if (cursor.size > 10) {
+      // Delete documents past the 10th one (excluding the newly added one)
+      const extraDocs = cursor.docs.slice(10); // Skip the first 10
+      const deletePromises = extraDocs.map((doc) => doc.ref.delete());
+
+      await Promise.all(deletePromises);
+      console.log("Deleted extra documents to maintain limit of 10");
+    }
+  });
