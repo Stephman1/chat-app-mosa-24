@@ -4,7 +4,6 @@
 import { initializeApp } from "firebase/app";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
-import { getFirestore, collection, getDocs } from 'firebase/firestore/lite'
 
 import {getAuth, signInWithPopup, GithubAuthProvider, onAuthStateChanged, User} from "firebase/auth";
 
@@ -22,27 +21,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 const auth = getAuth(app);
-
-// Initialize Cloud Firestore and get a reference to the service
-const db = getFirestore(app);
-
-/*
-// To remove as this should go in index.js
-// Function to fetch users data
-async function fetchUserData() {
-  try {
-    const querySnapshot = await getDocs(collection(db, 'users'));
-    querySnapshot.forEach((doc) => {
-      console.log(doc.id, '=>', doc.data());
-    });
-  } catch (error) {
-    console.error('Error fetching users data:', error);
-  }
-}
-
-// Call the function to fetch users data
-fetchUserData();
-*/
 
 // website for GitHub signin SDK - https://firebase.google.com/docs/auth/web/github-auth#web-modular-api
 
