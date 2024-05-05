@@ -57,7 +57,7 @@ export default function Chat() {
 // export default function Chat() {
 //   useEffect(() => {
 //     const setMessages = () => {
-//       async function printMessageData() {
+//       async function getMessageData() {
 //         // From Authentication Service creationYour web app's Firebase configuration
 //         const firebaseConfig = {
 //           apiKey: "AIzaSyAMC0z-vL9UQpH_-fRRB1VpjictRfM9800",
@@ -78,7 +78,7 @@ export default function Chat() {
 //           localStorage.setItem(doc.id.toString(), JSON.stringify(doc.data()));
 //         });
 //       }
-//       printMessageData();
+//       getMessageData();
 //     };
 //     // Call setMessages function when component mounts
 //     setMessages();
