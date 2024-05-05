@@ -3,38 +3,37 @@ import { firestore } from "./db";
 import { initializeApp } from "firebase-admin";
 
 const app = express();
-const port = 3005;
+const port = 3001;
 
 app.use(express.json());
 
+/* Allows the server to receive requests from other ports*/
+const cors = require('cors');
+app.use(cors({ origin: 'http://localhost:3000' }));
+
+/* Establish connection to firebase */
+const admin = require('firebase-admin');
+
+const serviceAccount = require('./firestore_credentials.json');
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+});
+
+const db = admin.firestore();
+
 app.post('/chat', async (req, res) => {
+  console.log('post request received');
   try {
-    const { text, userId, timestamp } = req.body; // Destructuring for cleaner access
-
-    if (!text || !userId || ! timestamp) {
-      return res.status(400).json({ message: 'Missing required fields' });
-    }
-
-    // console.log('Received text:', text, 'User ID:', userId);
-    // Process the received data (e.g., store it in a database)
-    const admin = require('firebase-admin');
-
-    const serviceAccount = require('./firestore_credentials.json');
-
-    admin.initializeApp({
-      credential: admin.credential.cert(serviceAccount),
-    });
-
-    const db = admin.firestore();
-
+    /* Write to database */
     const collection = db.collection("messages");
     const document = collection.doc();
     await document.set(req.body);
 
-    res.json({ message: 'Data received successfully' });
+    res.json({ message: 'Message saved successfully to Firestore' });
   } catch (error) {
     console.error('Error:', error);
-    res.status(500).json({ message: 'Error receiving data' });
+    res.status(500).json({ message: 'Error writing data to Firestore' });
   }
 });
 

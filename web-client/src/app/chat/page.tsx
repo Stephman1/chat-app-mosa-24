@@ -9,11 +9,32 @@ import { onAuthStateChangedHelper } from "@/utilities/firebase/firebase";
 export default function Chat() {
   const [inputText, setInputText] = useState("");
 
-  const sendMessage = (event: { preventDefault: () => void; }) => {
-    event.preventDefault();
+  const sendMessage = async (event: { preventDefault: () => void; }) => {
+    event.preventDefault(); // prevents page reload
+    setInputText(''); // sets the text input back to empty string
     
-    setInputText('');
-    console.log(`message sent: ${inputText}`);
+    const data = {
+      "message": inputText,
+      "timestamp": `${Date.now()}`,
+      "userId": user?.uid,
+    }
+
+    try {
+      const response = await fetch('http://localhost:3001/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+  
+      if (!response.ok) {
+        throw new Error(`Network response was not ok: ${response.status}`);
+      }
+  
+      const responseData = await response.json();
+      console.log('POST response:', responseData);
+    } catch (error) {
+      console.error('Error sending POST request:', error);
+    }
   };
 
   /* Logic for enabling and disabling the send button */
