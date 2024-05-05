@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from 'react';
 import styles from './page.module.css';
-import { getFirestore, collection, getDocs } from 'firebase/firestore/lite'
+import { getFirestore, collection, getDocs, query, where } from 'firebase/firestore/lite'
 import { initializeApp } from "firebase/app";
 
 // Define the Message interface
@@ -54,12 +54,49 @@ export default function Search() {
     const fetchMessages = async () => {
       const messages: Message[] = [];
       const querySnapshot = await getDocs(collection(db, 'messages'));
-      querySnapshot.forEach((doc) => {
-        localStorage.setItem(doc.id.toString(), JSON.stringify(doc.data()));
-        messages.push({ userId: doc.data().userId, message: doc.data().message, timestamp: doc.data().timestamp });
+    
+      // Fetching users data in parallel
+      const usersPromises = querySnapshot.docs.map(async (doc) => {
+        const userId = doc.data().userId;
+        // Query the 'users' collection to find the document where the userId field matches
+        const userQuerySnapshot = await getDocs(query(collection(db, 'users'), where('userId', '==', userId)));
+        if (!userQuerySnapshot.empty) {
+          const userDoc = userQuerySnapshot.docs[0]; // Assuming there's only one matching document
+          return {
+            userId: userId,
+            displayName: userDoc.data().displayName,
+            photoUrl: userDoc.data().photoUrl,
+            message: doc.data().message,
+            timestamp: doc.data().timestamp
+          };
+        } else {
+          return null; // Handle case where user document doesn't exist
+        }
       });
+    
+      const usersData = await Promise.all(usersPromises);
+    
+      usersData.forEach(data => {
+        if (data) {
+          // Store the data in localStorage using userId as key
+          localStorage.setItem(data.userId, JSON.stringify({
+            displayName: data.displayName,
+            photoUrl: data.photoUrl,
+            message: data.message,
+            timestamp: data.timestamp
+          }));
+    
+          // Push the message data to the messages array
+          messages.push({
+            userId: data.userId,
+            message: data.message,
+            timestamp: data.timestamp
+          });
+        }
+      });
+      // Set the filtered messages state
       setFilteredMessages(messages);
-    };
+    };    
     fetchMessages();
   }, []); // Empty dependency array ensures this effect runs only once on component mount
 
