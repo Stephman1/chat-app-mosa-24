@@ -1,8 +1,24 @@
 .nav {
-  background-color: var(--3);
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: 55px;
-  color: var(--5);
+  margin-bottom: 20px;
+}
+
+.sitelogo {
+  color: var(--2);
+  margin-left: 25px;
+  font-size: 25px;
+  border: 2px solid var(--2);
+  padding: 5px;
+  border-radius: 10px
+}
+
+.menuIcon {
+  background-color: gold;
+}
+
+.link{
+  text-decoration: none;
 }
