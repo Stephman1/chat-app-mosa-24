@@ -6,7 +6,7 @@ import { initializeApp } from "firebase/app";
 
 // Define the Message interface
 interface Message {
-  id: string;
+  uid: string;
   message: string;
 }
 
@@ -49,12 +49,13 @@ export default function Search() {
     // Clear localStorage
     localStorage.clear();
     // Fetch message data
+    // TODO it should only fetch messages from the FireStore db if the user is logged in
     const fetchMessages = async () => {
       const messages: Message[] = [];
       const querySnapshot = await getDocs(collection(db, 'messages'));
       querySnapshot.forEach((doc) => {
         localStorage.setItem(doc.id.toString(), JSON.stringify(doc.data()));
-        messages.push({ id: doc.id.toString(), message: doc.data().message });
+        messages.push({ uid: doc.id.toString(), message: doc.data().message });
       });
       setFilteredMessages(messages);
     };
@@ -77,7 +78,7 @@ export default function Search() {
       />
       <div className={styles.searchResults}>
         {filteredMessages.map((message, index) => (
-          <div key={index} className={styles.message}>{message.message}</div>
+          <div key={index} className={styles.message}>{message.uid}: {message.message}</div>
         ))}
       </div>
     </main>
