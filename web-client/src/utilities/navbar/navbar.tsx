@@ -6,7 +6,7 @@ import SignInBtn from "./signIn";
 import { useEffect, useState } from "react";
 import { onAuthStateChangedHelper } from "@/utilities/firebase/firebase";
 import { User } from "firebase/auth";
-import Navigation from "./menu";
+import MenuIcon from "./menu";
 
 function Navbar() {
   // 'closure' - JS will continue to maintain state of user even after function has executed
@@ -25,7 +25,7 @@ function Navbar() {
 
   return (
     <nav className={styles.nav}>
-      <Navigation />
+      <MenuIcon />
       <a href="/" className={styles.link}><h1 className={styles.sitelogo}>DC</h1></a>
       <SignInBtn user={user} />
     </nav>

@@ -1,0 +1,36 @@
+.main {
+  display: flex;
+  /* border: 1px gold solid; */
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+  margin-top: 10px;
+}
+
+.listElement {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid var(--3);
+  padding: 20px;
+  width: 250px;
+  color: var(--1);
+}
+
+.listElement:last-of-type {
+  border: none;
+}
+
+.listElement:hover {
+  cursor: pointer;
+  background-color: var(--1);
+  color: var(--3);
+}
+
+.link {
+  text-decoration: none;
+  font-size: 24px;
+  color: var(--3);
+}
