@@ -21,8 +21,6 @@ function Navbar() {
     return () => unsubscribe();
   });
 
-  console.log(`User: ${user}`); // displays to console state of user
-
   return (
     <nav className={styles.nav}>
       <MenuIcon />

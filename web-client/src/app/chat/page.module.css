@@ -1,0 +1,47 @@
+.main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.chatbox {
+  overflow: auto;
+  width: 450px;
+  height: 450px;
+  background-color: var(--3);
+  margin-top: 35px;
+}
+
+.textInput {
+  margin-top: 30px;
+  width: 450px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.textBox {
+  width: 350px;
+  background-color: var(--3);
+  border-radius: 15px;
+  padding: 8px;
+  border: none;
+}
+
+.submitBtn {
+  height: 30px;
+  width: 75px;
+  border-radius: 25px;
+  background-color: var(--5);
+  color: var(--1);
+  border: 2px solid var(--1);
+  margin-left: 20px;
+}
+
+.submitBtn:hover {
+  cursor: pointer;
+  background-color: var(--1);
+  color: white;
+  border: none;
+}

@@ -27,16 +27,13 @@ const auth = getAuth(app);
 // website for GitHub signin SDK - https://firebase.google.com/docs/auth/web/github-auth#web-modular-api
 
 export function signInWithGithub() {
-  console.log("sign in called");
   return signInWithPopup(auth, provider);
 }
 
 export function signOut() {
-  console.log("sign out called");
   return auth.signOut();
 }
 
 export function onAuthStateChangedHelper(callback: (user: User | null) => void) {
-  console.log(`onAuthstateChangedHelper called`);
   return onAuthStateChanged(auth, callback);
 }
