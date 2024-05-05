@@ -6,6 +6,7 @@ export default function Home() {
       <h1 className={styles.welcomeText}>
         Welcome <br></br> to <span className={styles.siteName}>DevChat</span>.
       </h1>
+      <h3 className={styles.welcomeSubtext}>A place for devs to meet and collaborate.</h3>
       
       <div className={styles.buttons}>
         <form action="/chat" method="get">
