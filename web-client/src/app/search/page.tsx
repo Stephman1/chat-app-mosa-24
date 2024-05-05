@@ -79,8 +79,10 @@ export default function Search() {
     
       usersData.forEach(data => {
         if (data) {
-          // Store the data in localStorage using userId as key
-          localStorage.setItem(data.userId, JSON.stringify({
+          // Store the data in localStorage
+          // Generate a unique key using userId and timestamp
+          const uniqueKey = `${data.userId}_${data.timestamp}`;
+          localStorage.setItem(uniqueKey, JSON.stringify({
             displayName: data.displayName,
             photoUrl: data.photoUrl,
             message: data.message,
