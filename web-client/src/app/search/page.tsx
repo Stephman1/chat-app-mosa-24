@@ -134,9 +134,16 @@ export default function Search() {
       />
       <div className={styles.searchResults}>
         {filteredMessages.map((message, index) => (
-          <div key={index} className={styles.message}>{message.displayName}: {message.photoUrl}: {message.message}: {message.dateTime}</div>
+          <div key={index} className={styles.message}>
+            <img src={message.photoUrl} alt={message.displayName} className={styles.userPhoto} />
+            <div>
+              <p>{message.displayName}</p>
+              <p>{message.message}</p>
+              <p>{message.dateTime}</p>
+            </div>
+          </div>
         ))}
       </div>
     </main>
-  );
+  );  
 }
