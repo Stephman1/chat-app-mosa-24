@@ -1,6 +1,5 @@
 .main {
   display: flex;
-  /* border: 1px gold solid; */
   flex-direction: column;
   justify-content: center;
   align-items: center;
