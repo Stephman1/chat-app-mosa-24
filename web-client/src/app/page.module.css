@@ -1,0 +1,57 @@
+.main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.welcomeText {
+  color: var(--3);
+  margin-top: 10%;
+  font-size: 45px;
+}
+
+.siteName {
+  color: var(--2);
+  text-decoration: underline;
+}
+
+.buttons {
+  width: 265px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 60px;
+}
+
+.button {
+  height: 40px;
+  width: 100px;
+  border-radius: 25px;
+  background-color: var(--5);
+  color: var(--1);
+  border: 2px solid var(--1);
+  font-size: 16px;
+}
+
+.button:hover {
+  cursor: pointer;
+  background-color: var(--1);
+  color: white;
+  border: none;
+}
+
+.noticeContainer {
+  color: var(--3);
+  /* border: 1px gold solid; */
+  height: 50vh;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  padding-bottom: 20px;
+}
+
+
+

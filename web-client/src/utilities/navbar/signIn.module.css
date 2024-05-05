@@ -1,14 +1,16 @@
 .button {
-  margin-right: 15px;
+  margin-right: 25px;
   height: 30px;
   width: 75px;
   border-radius: 25px;
-  background-color: rgb(0, 112, 255);
-  color: white;
-  border: 0px;
+  background-color: var(--5);
+  color: var(--1);
+  border: 2px solid var(--1);
 }
 
 .button:hover {
   cursor: pointer;
-  background-color: rgb(0, 94, 212);
+  background-color: var(--1);
+  color: white;
+  border: none;
 }
