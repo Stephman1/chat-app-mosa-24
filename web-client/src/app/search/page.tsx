@@ -29,19 +29,27 @@ export default function Search() {
         localStorage.setItem(doc.id.toString(), JSON.stringify(doc.data()));
       });
     };
-    // Function to print message data from localStorage
-    const printMessageData = () => {
+    // Function to print message data from localStorage, filtered by user input
+    const printMessageData = (userInput: string) => {
       for (var i = 0; i < localStorage.length; i++) {
         var key = localStorage.key(i);
         if (key !== null) {
           var value = localStorage.getItem(key);
-          console.log(key + ": " + value);
-        }
+          if (value != null) {
+            // Parse the JSON data
+            var messageData = JSON.parse(value);
+            // Check if the message text matches the user input using a regular expression
+            if (messageData && messageData.text && messageData.text.match(new RegExp(userInput, 'i'))) {
+              console.log(key + ": " + value);
+            }
+          }
+        } 
       }
     };
     // Call setMessages and printMessageData functions sequentially when component mounts
     setMessages().then(() => {
-      printMessageData();
+      // Provide user input to the printMessageData function
+      printMessageData("you");
     });
   }, []); // Empty dependency array ensures this effect runs only once on component mount
 
