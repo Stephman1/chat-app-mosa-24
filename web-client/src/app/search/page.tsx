@@ -6,7 +6,8 @@ import { initializeApp } from "firebase/app";
 
 // Define the Message interface
 interface Message {
-  userId: string;
+  displayName: string;
+  photoUrl: string;
   message: string;
   timestamp: string;
 }
@@ -59,7 +60,7 @@ export default function Search() {
       const usersPromises = querySnapshot.docs.map(async (doc) => {
         const userId = doc.data().userId;
         // Query the 'users' collection to find the document where the userId field matches
-        const userQuerySnapshot = await getDocs(query(collection(db, 'users'), where('userId', '==', userId)));
+        const userQuerySnapshot = await getDocs(query(collection(db, 'users'), where('uid', '==', userId)));
         if (!userQuerySnapshot.empty) {
           const userDoc = userQuerySnapshot.docs[0]; // Assuming there's only one matching document
           return {
@@ -88,7 +89,8 @@ export default function Search() {
     
           // Push the message data to the messages array
           messages.push({
-            userId: data.userId,
+            displayName: data.displayName,
+            photoUrl: data.photoUrl,
             message: data.message,
             timestamp: data.timestamp
           });
@@ -116,7 +118,7 @@ export default function Search() {
       />
       <div className={styles.searchResults}>
         {filteredMessages.map((message, index) => (
-          <div key={index} className={styles.message}>{message.userId}: {message.message}: {message.timestamp}</div>
+          <div key={index} className={styles.message}>{message.displayName}: {message.photoUrl}: {message.message}: {message.timestamp}</div>
         ))}
       </div>
     </main>
