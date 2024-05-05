@@ -34,14 +34,8 @@ export const storeNewUserInFirebase = functions.auth.user().onCreate((user) => {
 export const limitCollectionSize = functions.firestore
   .document("messages/{wildcard}")
   .onWrite(async (change, context) => {
-    // logger.info("New DB write detected");
-
-    // const newDoc = change.after.data();
-
-    // Skip if data hasn't changed or deleted
-    // if (!change.after.exists) return;
-
-    // Get the top 10 most recent documents with a cursor
+    
+    // get a list of all records in the collection
     const cursor = await firestore
       .collection("messages")
       .orderBy("timestamp", "desc")
@@ -54,6 +48,5 @@ export const limitCollectionSize = functions.firestore
       const deletePromises = extraDocs.map((doc) => doc.ref.delete());
 
       await Promise.all(deletePromises);
-      console.log("Deleted extra documents to maintain limit of 10");
     }
   });
