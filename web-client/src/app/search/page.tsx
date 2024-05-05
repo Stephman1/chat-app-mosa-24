@@ -6,8 +6,9 @@ import { initializeApp } from "firebase/app";
 
 // Define the Message interface
 interface Message {
-  uid: string;
+  userId: string;
   message: string;
+  timestamp: string;
 }
 
 export default function Search() {
@@ -55,7 +56,7 @@ export default function Search() {
       const querySnapshot = await getDocs(collection(db, 'messages'));
       querySnapshot.forEach((doc) => {
         localStorage.setItem(doc.id.toString(), JSON.stringify(doc.data()));
-        messages.push({ uid: doc.id.toString(), message: doc.data().message });
+        messages.push({ userId: doc.data().userId, message: doc.data().message, timestamp: doc.data().timestamp });
       });
       setFilteredMessages(messages);
     };
@@ -78,7 +79,7 @@ export default function Search() {
       />
       <div className={styles.searchResults}>
         {filteredMessages.map((message, index) => (
-          <div key={index} className={styles.message}>{message.uid}: {message.message}</div>
+          <div key={index} className={styles.message}>{message.userId}: {message.message}: {message.timestamp}</div>
         ))}
       </div>
     </main>
