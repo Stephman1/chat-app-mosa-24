@@ -1,61 +1,85 @@
 "use client";
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './page.module.css';
 import { getFirestore, collection, getDocs } from 'firebase/firestore/lite'
 import { initializeApp } from "firebase/app";
 
+// Define the Message interface
+interface Message {
+  id: string;
+  message: string;
+}
+
 export default function Search() {
+  const [userInput, setUserInput] = useState(""); // State for user input
+  const [filteredMessages, setFilteredMessages] = useState<Message[]>([]); // State for filtered messages
+
+  // Function to filter message data based on user input
+  const filterMessageData = (input: string): Message[] => {
+    const filtered: Message[] = [];
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (key !== null) {
+        const value = localStorage.getItem(key);
+        if (value !== null) {
+          const messageData: Message = JSON.parse(value);
+          if (!input || (messageData && messageData.message && messageData.message.toLowerCase().includes(input.toLowerCase()))) {
+            filtered.push(messageData);
+          }
+        }
+      }
+    }
+    return filtered;
+  };
+
   useEffect(() => {
-    // Function to fetch messages from Firebase and store them in localStorage
-    const setMessages = async () => {
-      // Your Firebase configuration
-      const firebaseConfig = {
-        apiKey: "AIzaSyAMC0z-vL9UQpH_-fRRB1VpjictRfM9800",
-        authDomain: "devchat-88614.firebaseapp.com",
-        projectId: "devchat-88614",
-        storageBucket: "devchat-88614.appspot.com",
-        messagingSenderId: "217891503392",
-        appId: "1:217891503392:web:5a2c296f8bbd602e186b45"
-      };
-      // Initialize Firebase
-      const app = initializeApp(firebaseConfig);
-      // Initialize Cloud Firestore and get a reference to the service
-      const db = getFirestore(app);
-      // Clear localStorage
-      localStorage.clear();
-      // Fetch message data
+    // Your Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyAMC0z-vL9UQpH_-fRRB1VpjictRfM9800",
+      authDomain: "devchat-88614.firebaseapp.com",
+      projectId: "devchat-88614",
+      storageBucket: "devchat-88614.appspot.com",
+      messagingSenderId: "217891503392",
+      appId: "1:217891503392:web:5a2c296f8bbd602e186b45"
+    };
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    // Initialize Cloud Firestore and get a reference to the service
+    const db = getFirestore(app);
+    // Clear localStorage
+    localStorage.clear();
+    // Fetch message data
+    const fetchMessages = async () => {
+      const messages: Message[] = [];
       const querySnapshot = await getDocs(collection(db, 'messages'));
       querySnapshot.forEach((doc) => {
         localStorage.setItem(doc.id.toString(), JSON.stringify(doc.data()));
+        messages.push({ id: doc.id.toString(), message: doc.data().message });
       });
+      setFilteredMessages(messages);
     };
-    // Function to print message data from localStorage, filtered by user input
-    const printMessageData = (userInput: string) => {
-      for (var i = 0; i < localStorage.length; i++) {
-        var key = localStorage.key(i);
-        if (key !== null) {
-          var value = localStorage.getItem(key);
-          if (value != null) {
-            // Parse the JSON data
-            var messageData = JSON.parse(value);
-            // Check if userInput is provided and if so, filter messages based on it
-            if (!userInput || (messageData && messageData.message && messageData.message.toLowerCase().includes(userInput.toLowerCase()))) {
-              console.log(key + ": " + messageData.message);
-            }
-          }
-        } 
-      }
-    };
-    // Call setMessages and printMessageData functions sequentially when component mounts
-    setMessages().then(() => {
-      // Provide user input to the printMessageData function
-      printMessageData("Stephen");
-    });
+    fetchMessages();
   }, []); // Empty dependency array ensures this effect runs only once on component mount
+
+  // Update filtered messages when user input changes
+  useEffect(() => {
+    setFilteredMessages(filterMessageData(userInput));
+  }, [userInput]);
 
   return (
     <main className={styles.main}>
       <h1>Search Page</h1>
+      <input
+        value={userInput}
+        onChange={(e) => setUserInput(e.target.value)} // Update userInput state on change
+        placeholder="Search for messages..."
+        className={styles.searchInput}
+      />
+      <div className={styles.searchResults}>
+        {filteredMessages.map((message, index) => (
+          <div key={index} className={styles.message}>{message.message}</div>
+        ))}
+      </div>
     </main>
   );
 }
