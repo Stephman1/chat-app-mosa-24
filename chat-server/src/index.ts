@@ -1,9 +1,10 @@
 import express from "express";
-import { firestore } from "./db";
-import { initializeApp } from "firebase-admin";
 
 const app = express();
 const port = 3001;
+
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
 
 app.use(express.json());
 
@@ -22,8 +23,23 @@ admin.initializeApp({
 
 const db = admin.firestore();
 
+/* web socket logic */
+const socket = new WebSocket('ws://localhost:3001/chat');
+io.on('connection', (socket : any) => {
+  console.log('Client connected');
+
+  // Handle incoming messages from the client
+  socket.on('newMessage', (data : any) => {
+    console.log('Received message:', JSON.stringify(data));
+
+    // Broadcast the message to all connected clients
+    io.emit('message', data); // Emit to all connected sockets
+  });
+});
+
+
 app.post('/chat', async (req, res) => {
-  console.log('post request received');
+  // console.log('post request received');
   try {
     /* Write to database */
     const collection = db.collection("messages");
@@ -38,27 +54,3 @@ app.post('/chat', async (req, res) => {
 });
 
 app.listen(port, () => console.log(`Server listening on port ${port}`));
-
-
-
-// app.get("/", (req, res) => {
-//   res.send("Hello World");
-// });
-
-// app.get("/users", async (req, res) => {
-//   try {
-//     const usersSnapshot = await firestore.collection('users').get();
-//     const userData: any[] = [];
-//     usersSnapshot.forEach(doc => {
-//       userData.push({uid: doc.id,...doc.data()});
-//     });
-//     res.json(userData);
-//   } catch (error) {
-//     console.error('Error getting user data', error);
-//     res.status(500).json({error: 'Internal Server Error'});
-//   }
-// });
-
-// app.listen(port, () => {
-//   console.log(`server listening at http://localhost:${port}`);
-// });
