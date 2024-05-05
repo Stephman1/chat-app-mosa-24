@@ -10,6 +10,7 @@ interface Message {
   photoUrl: string;
   message: string;
   timestamp: string;
+  dateTime: string;
 }
 
 export default function Search() {
@@ -63,11 +64,17 @@ export default function Search() {
         const userQuerySnapshot = await getDocs(query(collection(db, 'users'), where('uid', '==', userId)));
         if (!userQuerySnapshot.empty) {
           const userDoc = userQuerySnapshot.docs[0]; // Assuming there's only one matching document
+          // Convert timestamp to a more meaningful format
+          const timestamp = parseInt(doc.data().timestamp);
+          const date = new Date(timestamp);
+          const dateString = `${date.toLocaleDateString()} ${date.getHours()}:${date.getMinutes()}`;
+      
           return {
             userId: userId,
             displayName: userDoc.data().displayName,
             photoUrl: userDoc.data().photoUrl,
             message: doc.data().message,
+            dateTime: dateString,
             timestamp: doc.data().timestamp
           };
         } else {
@@ -86,7 +93,8 @@ export default function Search() {
             displayName: data.displayName,
             photoUrl: data.photoUrl,
             message: data.message,
-            timestamp: data.timestamp
+            timestamp: data.timestamp,
+            dateTime: data.dateTime
           }));
     
           // Push the message data to the messages array
@@ -94,10 +102,13 @@ export default function Search() {
             displayName: data.displayName,
             photoUrl: data.photoUrl,
             message: data.message,
-            timestamp: data.timestamp
+            timestamp: data.timestamp,
+            dateTime: data.dateTime
           });
         }
       });
+      // Sort messages by timestamp in descending order
+      messages.sort((a, b) => parseInt(b.timestamp) - parseInt(a.timestamp));
       // Set the filtered messages state
       setFilteredMessages(messages);
     };    
@@ -106,7 +117,10 @@ export default function Search() {
 
   // Update filtered messages when user input changes
   useEffect(() => {
-    setFilteredMessages(filterMessageData(userInput));
+    const filtered = filterMessageData(userInput);
+    // Sort filtered messages by timestamp in descending order
+    filtered.sort((a, b) => parseInt(b.timestamp) - parseInt(a.timestamp));
+    setFilteredMessages(filtered);
   }, [userInput]);
 
   return (
@@ -120,7 +134,7 @@ export default function Search() {
       />
       <div className={styles.searchResults}>
         {filteredMessages.map((message, index) => (
-          <div key={index} className={styles.message}>{message.displayName}: {message.photoUrl}: {message.message}: {message.timestamp}</div>
+          <div key={index} className={styles.message}>{message.displayName}: {message.photoUrl}: {message.message}: {message.dateTime}</div>
         ))}
       </div>
     </main>
