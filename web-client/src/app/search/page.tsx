@@ -38,9 +38,9 @@ export default function Search() {
           if (value != null) {
             // Parse the JSON data
             var messageData = JSON.parse(value);
-            // Check if the message text matches the user input using a regular expression
-            if (messageData && messageData.text && messageData.text.match(new RegExp(userInput, 'i'))) {
-              console.log(key + ": " + value);
+            // Check if userInput is provided and if so, filter messages based on it
+            if (!userInput || (messageData && messageData.message && messageData.message.toLowerCase().includes(userInput.toLowerCase()))) {
+              console.log(key + ": " + messageData.message);
             }
           }
         } 
@@ -49,7 +49,7 @@ export default function Search() {
     // Call setMessages and printMessageData functions sequentially when component mounts
     setMessages().then(() => {
       // Provide user input to the printMessageData function
-      printMessageData("you");
+      printMessageData("Stephen");
     });
   }, []); // Empty dependency array ensures this effect runs only once on component mount
 
