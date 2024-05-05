@@ -68,7 +68,7 @@ export default function Search() {
 
   return (
     <main className={styles.main}>
-      <h1>Search Page</h1>
+      <h1 className={styles.searchTitle}>Search Page</h1>
       <input
         value={userInput}
         onChange={(e) => setUserInput(e.target.value)} // Update userInput state on change
