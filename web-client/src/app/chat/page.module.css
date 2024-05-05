@@ -45,3 +45,17 @@
   color: white;
   border: none;
 }
+
+.submitBtnDisabled {
+  height: 30px;
+  width: 75px;
+  border-radius: 25px;
+  background-color: var(--5);
+  color: var(--3);
+  border: 2px solid var(--3);
+  margin-left: 20px;
+}
+
+.submitBtnDisabled:hover {
+  cursor: not-allowed;
+}
