@@ -1,5 +1,41 @@
 "use client";
-import { useEffect } from 'react';
+
+import { eventNames } from "process";
+import styles from "./page.module.css";
+import React, { useState } from 'react';
+
+export default function Chat() {
+  const [inputText, setInputText] = useState("");
+
+  const sendMessage = (event: { preventDefault: () => void; }) => {
+    event.preventDefault();
+    
+    setInputText('');
+
+
+
+    console.log(`message sent: ${inputText}`);
+  };
+
+
+  return (
+    <main className={styles.main}>
+      <div className={styles.chatbox}>
+
+      </div>
+
+      <form className={styles.textInput} onSubmit={sendMessage}>
+        <input value={inputText} className={styles.textBox} type="text" 
+            maxLength={160} placeholder="Type here..." onChange={(event) => {
+              setInputText(event.target.value)
+            }} />
+        <button className={styles.submitBtn} type="submit">Send</button>
+      </form>
+    </main>
+  );
+}
+        
+<!-- import { useEffect } from 'react';
 import styles from './page.module.css';
 import { getFirestore, collection, getDocs } from 'firebase/firestore/lite'
 import { initializeApp } from "firebase/app";
@@ -32,11 +68,4 @@ export default function Chat() {
     };
     // Call setMessages function when component mounts
     setMessages();
-  }, []); // Empty dependency array ensures this effect runs only once on component mount
-
-  return (
-    <main className={styles.main}>
-      <h1>Chat Page</h1>
-    </main>
-  );
-}
+  }, []); // Empty dependency array ensures this effect runs only once on component mount -->
