@@ -33,10 +33,23 @@ export default function Chat() {
       </div>
 
       <form className={styles.textInput} onSubmit={sendMessage}>
-        <input value={inputText} className={styles.textBox} type="text" 
+
+        {/* Text Input */}
+        {
+          (user === null) ? (
+            <input value={inputText} className={styles.textBox} type="text" 
+            maxLength={160} placeholder="Sign In To Chat" onChange={(event) => {
+              setInputText(event.target.value)
+            }} />
+          ) : (
+            <input value={inputText} className={styles.textBox} type="text" 
             maxLength={160} placeholder="Type here..." onChange={(event) => {
               setInputText(event.target.value)
             }} />
+          )
+        }
+        
+        {/* Send Button */}
         {
           (user === null) ? (
             <button className={styles.submitBtnDisabled} type="submit" disabled>Send</button>
