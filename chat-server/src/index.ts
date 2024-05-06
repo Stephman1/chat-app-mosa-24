@@ -6,6 +6,9 @@ import { getFirestore, collection, getDocs, query, where } from "firebase/firest
 const app = express();
 const port = 3001;
 
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
+
 app.use(express.json());
 
 /* Allows the server to receive requests from other ports*/
