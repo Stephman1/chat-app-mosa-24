@@ -3,56 +3,67 @@
 **Guidelines**
 You are free to use whatever language(s) for the MOSA Summer of Code Project, and there is no limit on the number or type(s) of framework(s) you will adopt. But you should keep all your code in a single GitHub org or repo, so that it will be better organised for the purposes of evaluation.
 
-## **Project Title**
+## **ChatApp**
 
 ## **Overview**
 
 **Project Summary**
 
-Please provide a short (one paragraph) summary of your project. Consider this your elevator pitch.
-Include the link to your Devpost project page here: (https://mosa-spring-hackathon-2024.devpost.com/)
+DevChat is a web-based chat application built for developers. Anyone can see the conversation history, however, only people with a GitHub account are able to contribute to the conversation.
+https://devpost.com/software/chatapp-2jenta
 
 **Authors**
 
-- Name - Devpost ID – Penn email - [GitHub](https://github.com/username)
-- Name - Devpost ID – Penn email - [GitHub](https://github.com/username)
-- Name - Devpost ID – Penn email - [GitHub](https://github.com/username)
-- Name - Devpost ID – Penn email - [GitHub](https://github.com/username)
+- Stephen Keeler - SMan24 – keelers@seas.upenn.edu - [GitHub](https://github.com/Stephman1)
+- Shariq Lalani - slalani13 – shariqla@seas.upenn.edu - [GitHub](https://github.com/slalani13)
+- Ryan Morgan - Ryan-the-Engineer – rymorgan@seas.upenn.edu - [GitHub](https://github.com/MisutaKohi)
 
 ## **Usage**
-This section walks a prospective user through the process of installing and running the project on their local machine. 
-The more detailed and the more accurate, the better. User-friendly instructions will entice prospective users (including judges) to engage more deeply with your project, which could improve your hackathon score.
-
 
 ### **Prerequisites** 
-What prerequisites must be installed in order to run your project, and how do you install them?
-Provide code samples in this fenced code block.
+```
+Docker Engine
+Node.js
+```
 
 ### **Installation**
-Give a step-by-step rundown of how to install your project.
 
-State step 1.
+Step 1.
+Navigate to the chat-server folder, which contains a Docker file. Build the docker image for the web server.
+```
+docker build -t chat-server .
+```
+You can now run a Docker container with the chat-server image when ready to deploy the web server.
 
-Provide code samples in this fenced code block.
-
-State step 2.
-
-Provide code samples in this fenced code block.
-
-Etc.
+Step 2.
+Navigate to the web-client folder. Build the web client.
+```
+// Check that npm is installed. If you have downloaded Node.js, npm should aleady be installed.
+npm --version
+// You may need to install Next.js CLI locally
+npm i next
+// Build the web client
+npm run build
+```
+You can now start the web client when ready to deploy.
 
 ### **Deployment**
-Give a step-by-step rundown of how to use your project. Including screenshots in this section can be highly effective for highlighting specific features of your project.
 
-State step 1. 
+Step 1.
+Run the Docker container for the web server.
+```
+docker run -p 3001:3001 --name my-chat-server-container --rm chat-server
+```
+The server is now running in the Docker container and listening at http://localhost:3001.
 
-Provide code samples in this fenced code block.
+Step 2.
+Navigate to the web-client folder. Start the web client.
+```
+// Run the web client
+npm run start
+```
+The web client is now running and can be accessed at http://localhost:3000.
 
-State step 2.
-
-Provide code samples in this fenced code block.
-
-Etc.
 ## **Additional information**
 
 ### **Tools used**
