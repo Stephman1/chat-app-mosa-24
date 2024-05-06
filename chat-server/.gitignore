@@ -1,3 +1,4 @@
 node_modules
 service_account
 src/firestore_credentials.json
+.DS_Store
