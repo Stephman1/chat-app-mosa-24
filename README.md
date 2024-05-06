@@ -23,7 +23,7 @@ https://devpost.com/software/chatapp-2jenta
 ### **Prerequisites** 
 ```
 Docker Engine
-Node.js
+Node.js (v20.12.2)
 ```
 
 ### **Installation**
