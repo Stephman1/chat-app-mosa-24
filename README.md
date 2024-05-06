@@ -19,20 +19,74 @@ https://devpost.com/software/chatapp-2jenta
 - Ryan Morgan - Ryan-the-Engineer – rymorgan@seas.upenn.edu - [GitHub](https://github.com/MisutaKohi)
 
 ## **Usage**
-This section walks a prospective user through the process of installing and running the project on their local machine. 
-The more detailed and the more accurate, the better. User-friendly instructions will entice prospective users (including judges) to engage more deeply with your project, which could improve your hackathon score.
-
 
 ### **Prerequisites** 
 What prerequisites must be installed in order to run your project, and how do you install them?
 Provide code samples in this fenced code block.
+```
+In project folder:
+{
+  "dependencies": {
+    "firebase": "^10.11.1",
+    "firebase-admin": "^12.1.0",
+    "firebase-functions": "^5.0.1"
+  }
+}
+In cloud-functions:
+"dependencies": {
+    "firebase-admin": "^12.1.0",
+    "firebase-functions": "^5.0.0"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.12.0",
+    "@typescript-eslint/parser": "^5.12.0",
+    "eslint": "^8.9.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-plugin-import": "^2.25.4",
+    "firebase-functions-test": "^3.1.0",
+    "typescript": "^4.9.0"
+  },
+In web-client:
+"dependencies": {
+    "express": "^4.19.2",
+    "firebase": "^10.11.1",
+    "firebase-admin": "^12.1.0",
+    "next": "^14.2.3",
+    "node-localstorage": "^3.0.5",
+    "react": "^18",
+    "react-dom": "^18"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.12.8",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.3",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
+  }
+In chat-server:
+"dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "firebase-admin": "^12.1.0",
+    "socket.io": "^4.7.5"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.12.8",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
+  }
+```
 
 ### **Installation**
-Give a step-by-step rundown of how to install your project.
 
-State step 1.
+Step 1.
 
-Provide code samples in this fenced code block.
+```
+```
 
 State step 2.
 
