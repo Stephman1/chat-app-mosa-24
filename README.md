@@ -66,29 +66,19 @@ The web client is now running and can be accessed at http://localhost:3000.
 
 ## **Additional information**
 
+As of 05/07/2024, credentials are provided so that when the web client runs users can view and send messages. However, going forward this will be modified and instead users will login to the website and this allow them to view and send messages without needing credentials supplied in the repository.
+
 ### **Tools used**
-Which frameworks, libraries, or other tools did you use to create your project?
 
+[Next.js](https://nextjs.org/) - We used Next.js to build a server-rendered website.
 
-[Tool 1](https://maven.apache.org/) - Description (e.g. "Web framework used")
-
-[Tool 2](https://maven.apache.org/)  - Description 
-
-[Tool 3](https://maven.apache.org/) - Description 
+[Firebase](https://firebase.google.com/)  - Firebase is a set of backend cloud computing services and application development platforms provided by Google. We used it for authenticating users through their GitHub accounts and to host the Firestore NoSQL database for storing messages and user information.
 
 ## **Acknowledgments**
-Use anyone else's code? Inspired by a particular project? List / link here.
 
-Item 1
-
-Item 2
-
-Item 3
+Our project was originally inspired by the textbook: [Head First Java](https://www.oreilly.com/library/view/head-first-java/9781492091646/). In Chapter 17, You'll find some sample code for a very simple chat app. The authors finish the chapter by issuing a challenge that you come back and enhance the code as your skills improve.
 
 ## **License**
-If desired, add a section for your license. Reference sites like (https://choosealicense.com/) can help you choose which license meets your needs.
-
-For example:
 
 This package is licensed under the GNU General Public License v3.0 [GPL-3](https://choosealicense.com/licenses/gpl-3.0/).
 
