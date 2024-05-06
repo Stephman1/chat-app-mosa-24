@@ -1,7 +1,7 @@
 import express from "express";
 import { firestore } from "./db";
 import { initializeApp } from "firebase-admin";
-import { getFirestore, collection, getDocs, query, where } from "firebase/firestore/lite";
+// import { getFirestore, collection, getDocs, query, where } from "firebase/firestore/lite";
 
 const app = express();
 const port = 3001;

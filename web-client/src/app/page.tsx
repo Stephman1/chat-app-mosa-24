@@ -18,7 +18,7 @@ export default function Home() {
       </div>
       
       <div className={styles.noticeContainer}>
-        <p>Please excuse the mess. We're in Beta.</p>
+        <p>Please excuse the mess. We&apos;re in Beta.</p>
       </div>
     </main>
   );
