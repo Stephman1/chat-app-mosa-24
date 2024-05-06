@@ -21,91 +21,49 @@ https://devpost.com/software/chatapp-2jenta
 ## **Usage**
 
 ### **Prerequisites** 
-What prerequisites must be installed in order to run your project, and how do you install them?
-Provide code samples in this fenced code block.
 ```
-In project folder:
-{
-  "dependencies": {
-    "firebase": "^10.11.1",
-    "firebase-admin": "^12.1.0",
-    "firebase-functions": "^5.0.1"
-  }
-}
-In cloud-functions:
-"dependencies": {
-    "firebase-admin": "^12.1.0",
-    "firebase-functions": "^5.0.0"
-  },
-  "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^5.12.0",
-    "@typescript-eslint/parser": "^5.12.0",
-    "eslint": "^8.9.0",
-    "eslint-config-google": "^0.14.0",
-    "eslint-plugin-import": "^2.25.4",
-    "firebase-functions-test": "^3.1.0",
-    "typescript": "^4.9.0"
-  },
-In web-client:
-"dependencies": {
-    "express": "^4.19.2",
-    "firebase": "^10.11.1",
-    "firebase-admin": "^12.1.0",
-    "next": "^14.2.3",
-    "node-localstorage": "^3.0.5",
-    "react": "^18",
-    "react-dom": "^18"
-  },
-  "devDependencies": {
-    "@types/express": "^4.17.21",
-    "@types/node": "^20.12.8",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
-    "eslint": "^8",
-    "eslint-config-next": "14.2.3",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.4.5"
-  }
-In chat-server:
-"dependencies": {
-    "cors": "^2.8.5",
-    "express": "^4.19.2",
-    "firebase-admin": "^12.1.0",
-    "socket.io": "^4.7.5"
-  },
-  "devDependencies": {
-    "@types/express": "^4.17.21",
-    "@types/node": "^20.12.8",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.4.5"
-  }
+Docker Engine
+Node.js
 ```
 
 ### **Installation**
 
 Step 1.
-
+Navigate to the chat-server folder, which contains a Docker file. Build the docker image for the web server.
 ```
+docker build -t chat-server .
 ```
+You can now run a Docker container with the chat-server image when ready to deploy the web server.
 
-State step 2.
-
-Provide code samples in this fenced code block.
-
-Etc.
+Step 2.
+Navigate to the web-client folder. Build the web client.
+```
+// Check that npm is installed. If you have downloaded Node.js, npm should aleady be installed.
+npm --version
+// You may need to install Next.js CLI locally
+npm i next
+// Build the web client
+npm run build
+```
+You can now start the web client when ready to deploy.
 
 ### **Deployment**
-Give a step-by-step rundown of how to use your project. Including screenshots in this section can be highly effective for highlighting specific features of your project.
 
-State step 1. 
+Step 1.
+Run the Docker container for the web server.
+```
+docker run -p 3001:3001 --name my-chat-server-container --rm chat-server
+```
+The server is now running in the Docker container and listening at http://localhost:3001.
 
-Provide code samples in this fenced code block.
+Step 2.
+Navigate to the web-client folder. Start the web client.
+```
+// Run the web client
+npm run start
+```
+The web client is now running and can be accessed at http://localhost:3000.
 
-State step 2.
-
-Provide code samples in this fenced code block.
-
-Etc.
 ## **Additional information**
 
 ### **Tools used**
