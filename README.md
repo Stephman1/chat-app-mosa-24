@@ -1,6 +1,4 @@
-# MOSA-Spring-Hackathon-2024
-
-## **ChatApp**
+# ChatApp
 
 ## **Overview**
 
