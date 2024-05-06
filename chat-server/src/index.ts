@@ -70,6 +70,8 @@ app.get("/get_data", async (req, res) => {
     }
   }
 
+  combinedData.sort((a, b) => a.timestamp.localeCompare(b.timestamp));
+
   // console.log(JSON.stringify(combinedData));
   res.json(combinedData);
 });
