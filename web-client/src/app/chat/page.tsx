@@ -69,7 +69,7 @@ export default function Chat() {
               <div className={styles.message} key={index}>
                 <div className={styles.row}>
                   <img src={item.photoUrl} alt="photo" className={styles.img} />
-                  <p >{`${Math.floor((parseInt(item.timestamp) / 1000 / 60 / 60) % 24)}:${("0" + Math.floor(parseInt(item.timestamp) / 1000 / 60) % 60).substr(-2)}`}</p>
+                  <p >{`${new Date(parseInt(item.timestamp)).toLocaleTimeString()}`}</p>
                 </div>
                 <p className={styles.text}>{item.message}</p>
               </div>
