@@ -66,7 +66,7 @@ The web client is now running and can be accessed at http://localhost:3000.
 
 ## **Additional information**
 
-As of 05/07/2024, credentials are provided so that when the web client runs users can view and send messages. However, going forward this will be modified and instead users will login to the website and this allow them to view and send messages without needing credentials supplied in the repository.
+As of 05/07/2024, credentials are provided so that when the web client runs users can view and send messages. However, going forward this will be modified and instead users will login to the website and this will allow them to view and send messages without needing credentials supplied in the repository.
 
 ### **Tools used**
 
