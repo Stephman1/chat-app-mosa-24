@@ -1,14 +1,92 @@
-.searchTitle {
-    color: #fff; /* White text color */
-    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5); /* Text shadow for contrast */
-  }
-  
-  .searchResults {
-    background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent white background */
-    color: #000; /* Black text color */
-  }
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
-  .userPhoto {
-    width: 50px; /* Adjust the width as needed */
-    height: auto; /* Maintain aspect ratio */
-  }
+.title {
+  color: var(--1);
+  margin-top: 25px;
+}
+
+.searchBar {
+  justify-content: center;
+  display: flex;
+}
+
+.textInput {
+  margin-top: 30px;
+  width: 450px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.textBox {
+  width: 350px;
+  background-color: var(--3);
+  border-radius: 15px;
+  padding: 8px;
+  border: none;
+}
+
+.submitBtn {
+  height: 30px;
+  width: 75px;
+  border-radius: 25px;
+  background-color: var(--5);
+  color: var(--1);
+  border: 2px solid var(--1);
+  margin-left: 20px;
+}
+
+.submitBtn:hover {
+  cursor: pointer;
+  background-color: var(--1);
+  color: white;
+  border: none;
+}
+
+.searchResults {
+  overflow: auto;
+  width: 450px;
+  height: 450px;
+  background-color: var(--3);
+  margin-top: 35px;
+  padding: 15px;
+}
+
+.message {
+  /* border: 1px gold solid; */
+  border-radius: 15px;
+  margin-bottom: 8px;
+  padding: 3px;
+  background-color: var(--1);
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  /* border: 1px red solid; */
+  margin-bottom: 5px;
+  align-items: center;
+}
+
+.img {
+  width: 30px;
+  height: 30px;
+  border-radius: 20px;
+  margin-left: 10px;
+  margin-right: 15px;
+}
+
+.text {
+  margin-left: 20px;
+  margin-bottom: 10px;
+}
+
+.noResults {
+  text-align: center;
+  margin-top: 25px;
+}
+  

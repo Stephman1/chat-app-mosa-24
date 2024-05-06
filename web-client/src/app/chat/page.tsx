@@ -56,7 +56,7 @@ export default function Chat() {
     .then(response => response.json())
     .then(data => {  
       fillArray(data);
-      console.log(JSON.stringify(jsonObjs));
+      // console.log(JSON.stringify(jsonObjs));
     });
   });
 
