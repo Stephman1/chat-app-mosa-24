@@ -1,6 +1,7 @@
 import express from "express";
 import { firestore } from "./db";
 import { initializeApp } from "firebase-admin";
+import { getFirestore, collection, getDocs, query, where } from "firebase/firestore/lite";
 
 const app = express();
 const port = 3001;
@@ -16,14 +17,62 @@ const admin = require('firebase-admin');
 
 const serviceAccount = require('./firestore_credentials.json');
 
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-});
+// admin.initializeApp({
+//   credential: admin.credential.cert(serviceAccount),
+// });
 
 const db = admin.firestore();
 
+app.get("/get_data", async (req, res) => {
+
+  const userData: any[] = [];
+  const messagesData: any[] = [];
+  const combinedData: any[] = [];
+
+  try {
+    const usersSnapshot = await firestore.collection("users").get();
+    usersSnapshot.forEach(doc => {
+      userData.push({uid: doc.id,...doc.data()});
+    });
+  } catch (error) {
+    console.error("Error getting user data", error);
+  }
+
+  try {
+    const messagesSnapshot = await firestore.collection("messages").get();
+    messagesSnapshot.forEach(doc => {
+      messagesData.push({uid: doc.id,...doc.data()});
+    });
+  } catch (error) {
+    console.error("Error getting messages data", error);
+  }
+
+  // console.log(JSON.stringify(messagesData));
+  
+
+  for (const message of messagesData) {
+    for (const user of userData) {
+      if (message.userId === user.uid) {
+        const newObj = {
+          "uid": message.uid,
+          "photoUrl": user.photoUrl,
+          "displayName": user.displayName,
+          "email": user.email,
+          "message": message.message,
+          "timestamp": message.timestamp,
+        };
+        combinedData.push(newObj);
+        continue;
+      }
+    }
+  }
+
+  // console.log(JSON.stringify(combinedData));
+  res.json(combinedData);
+});
+
 app.post('/chat', async (req, res) => {
-  console.log('post request received');
+  
   try {
     /* Write to database */
     const collection = db.collection("messages");
@@ -37,28 +86,6 @@ app.post('/chat', async (req, res) => {
   }
 });
 
-app.listen(port, () => console.log(`Server listening on port ${port}`));
-
-
-
-// app.get("/", (req, res) => {
-//   res.send("Hello World");
-// });
-
-// app.get("/users", async (req, res) => {
-//   try {
-//     const usersSnapshot = await firestore.collection('users').get();
-//     const userData: any[] = [];
-//     usersSnapshot.forEach(doc => {
-//       userData.push({uid: doc.id,...doc.data()});
-//     });
-//     res.json(userData);
-//   } catch (error) {
-//     console.error('Error getting user data', error);
-//     res.status(500).json({error: 'Internal Server Error'});
-//   }
-// });
-
-// app.listen(port, () => {
-//   console.log(`server listening at http://localhost:${port}`);
-// });
+app.listen(port, () => {
+  console.log(`server listening at http://localhost:${port}`);
+});
