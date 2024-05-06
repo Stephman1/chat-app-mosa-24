@@ -3,21 +3,20 @@
 **Guidelines**
 You are free to use whatever language(s) for the MOSA Summer of Code Project, and there is no limit on the number or type(s) of framework(s) you will adopt. But you should keep all your code in a single GitHub org or repo, so that it will be better organised for the purposes of evaluation.
 
-## **Project Title**
+## **ChatApp**
 
 ## **Overview**
 
 **Project Summary**
 
-Please provide a short (one paragraph) summary of your project. Consider this your elevator pitch.
-Include the link to your Devpost project page here: (https://mosa-spring-hackathon-2024.devpost.com/)
+DevChat is a web-based chat application built for developers. Anyone can see the conversation history, however, only people with a GitHub account are able to contribute to the conversation.
+https://devpost.com/software/chatapp-2jenta
 
 **Authors**
 
-- Name - Devpost ID – Penn email - [GitHub](https://github.com/username)
-- Name - Devpost ID – Penn email - [GitHub](https://github.com/username)
-- Name - Devpost ID – Penn email - [GitHub](https://github.com/username)
-- Name - Devpost ID – Penn email - [GitHub](https://github.com/username)
+- Stephen Keeler - SMan24 – keelers@seas.upenn.edu - [GitHub](https://github.com/Stephman1)
+- Shariq Lalani - slalani13 – shariqla@seas.upenn.edu - [GitHub](https://github.com/slalani13)
+- Ryan Morgan - Ryan-the-Engineer – rymorgan@seas.upenn.edu - [GitHub](https://github.com/MisutaKohi)
 
 ## **Usage**
 This section walks a prospective user through the process of installing and running the project on their local machine. 
