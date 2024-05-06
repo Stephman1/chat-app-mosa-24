@@ -72,7 +72,13 @@ As of 05/07/2024, credentials are provided so that when the web client runs user
 
 [Next.js](https://nextjs.org/) - We used Next.js to build a server-rendered website.
 
-[Firebase](https://firebase.google.com/)  - Firebase is a set of backend cloud computing services and application development platforms provided by Google. We used it for authenticating users through their GitHub accounts and to host the Firestore NoSQL database for storing messages and user information.
+[Firebase](https://firebase.google.com/)  - Firebase is a set of backend cloud computing services and application development platforms provided by Google. We used it for authenticating users through their GitHub accounts and to host the Firestore NoSQL database.
+
+[Firestore](https://firebase.google.com/docs/firestore) - We used the Firestore NoSQL cloud database for storing messages and user information.
+
+[Cloud Functions](https://cloud.google.com/functions?hl=en) - We used Google Cloud functions to store new GitHub users in the Firestore database and to limit the messages collection to 10 messages.
+
+[Express](https://expressjs.com/) - We used Express for building RESTful APIs with Node.js.
 
 ## **Acknowledgments**
 
