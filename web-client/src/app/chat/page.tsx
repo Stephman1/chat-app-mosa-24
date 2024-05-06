@@ -9,11 +9,33 @@ import { onAuthStateChangedHelper } from "@/utilities/firebase/firebase";
 export default function Chat() {
   const [inputText, setInputText] = useState("");
 
-  const sendMessage = (event: { preventDefault: () => void; }) => {
-    event.preventDefault();
+  /* Sends message to be written in Firestore */
+  const sendMessage = async (event: { preventDefault: () => void; }) => {
+    event.preventDefault(); // prevents page reload
+    setInputText(''); // sets the text input back to empty string
     
-    setInputText('');
-    console.log(`message sent: ${inputText}`);
+    const data = {
+      "message": inputText,
+      "timestamp": `${Date.now()}`,
+      "userId": user?.uid,
+    }
+
+    try {
+      const response = await fetch('http://localhost:3001/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+  
+      if (!response.ok) {
+        throw new Error(`Network response was not ok: ${response.status}`);
+      }
+  
+      const responseData = await response.json();
+      console.log('POST response:', responseData);
+    } catch (error) {
+      console.error('Error sending POST request:', error);
+    }
   };
 
   /* Logic for enabling and disabling the send button */
@@ -25,18 +47,55 @@ export default function Chat() {
     // Cleanup subscription on unmount
     return () => unsubscribe();
   });
-  
+
+  /* Fetch messages from DataBase on first render */
+  const [jsonObjs, fillArray] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:3001/get_data")
+    .then(response => response.json())
+    .then(data => {  
+      fillArray(data);
+      console.log(JSON.stringify(jsonObjs));
+    });
+  });
+
   return (
     <main className={styles.main}>
       <div className={styles.chatbox}>
-
+        {
+          jsonObjs.map((item : any, index) => {
+            return (
+              <div className={styles.message} key={index}>
+                <div className={styles.row}>
+                  <img src={item.photoUrl} alt="photo" className={styles.img} />
+                  <p >{`${new Date(parseInt(item.timestamp)).toLocaleTimeString()}`}</p>
+                </div>
+                <p className={styles.text}>{item.message}</p>
+              </div>
+            );
+          })
+        }
       </div>
 
       <form className={styles.textInput} onSubmit={sendMessage}>
-        <input value={inputText} className={styles.textBox} type="text" 
+
+        {/* Text Input */}
+        {
+          (user === null) ? (
+            <input value={inputText} className={styles.textBox} type="text" 
+            maxLength={160} placeholder="Sign In To Chat" onChange={(event) => {
+              setInputText(event.target.value)
+            }} />
+          ) : (
+            <input value={inputText} className={styles.textBox} type="text" 
             maxLength={160} placeholder="Type here..." onChange={(event) => {
               setInputText(event.target.value)
             }} />
+          )
+        }
+        
+        {/* Send Button */}
         {
           (user === null) ? (
             <button className={styles.submitBtnDisabled} type="submit" disabled>Send</button>
@@ -48,38 +107,3 @@ export default function Chat() {
     </main>
   );
 }
-        
-// import { useEffect } from 'react';
-// import styles from './page.module.css';
-// import { getFirestore, collection, getDocs } from 'firebase/firestore/lite'
-// import { initializeApp } from "firebase/app";
-
-// export default function Chat() {
-//   useEffect(() => {
-//     const setMessages = () => {
-//       async function getMessageData() {
-//         // From Authentication Service creationYour web app's Firebase configuration
-//         const firebaseConfig = {
-//           apiKey: "AIzaSyAMC0z-vL9UQpH_-fRRB1VpjictRfM9800",
-//           authDomain: "devchat-88614.firebaseapp.com",
-//           projectId: "devchat-88614",
-//           storageBucket: "devchat-88614.appspot.com",
-//           messagingSenderId: "217891503392",
-//           appId: "1:217891503392:web:5a2c296f8bbd602e186b45"
-//         };
-//         // Initialize Firebase
-//         const app = initializeApp(firebaseConfig);
-//         // Initialize Cloud Firestore and get a reference to the service
-//         const db = getFirestore(app);
-//         localStorage.clear();
-//         // Fetch message data
-//         const querySnapshot = await getDocs(collection(db, 'messages'));
-//         querySnapshot.forEach((doc) => {
-//           localStorage.setItem(doc.id.toString(), JSON.stringify(doc.data()));
-//         });
-//       }
-//       getMessageData();
-//     };
-//     // Call setMessages function when component mounts
-//     setMessages();
-//   }, []); // Empty dependency array ensures this effect runs only once on component mount -->

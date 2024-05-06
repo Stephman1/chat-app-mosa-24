@@ -11,6 +11,7 @@
   height: 450px;
   background-color: var(--3);
   margin-top: 35px;
+  padding: 15px;
 }
 
 .textInput {
@@ -58,4 +59,33 @@
 
 .submitBtnDisabled:hover {
   cursor: not-allowed;
+}
+
+.message {
+  /* border: 1px gold solid; */
+  border-radius: 15px;
+  margin-bottom: 8px;
+  padding: 3px;
+  background-color: var(--1);
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  /* border: 1px red solid; */
+  margin-bottom: 5px;
+  align-items: center;
+}
+
+.img {
+  width: 30px;
+  height: 30px;
+  border-radius: 20px;
+  margin-left: 10px;
+  margin-right: 15px;
+}
+
+.text {
+  margin-left: 20px;
+  margin-bottom: 10px;
 }
